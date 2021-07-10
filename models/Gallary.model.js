@@ -10,4 +10,4 @@ class Gallary{
   }
 
 
-  module.exports=Gallary
+module.exports=Gallary
