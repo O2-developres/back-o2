@@ -5,19 +5,18 @@ const UserController=(req, res)=> {
     //     res.send(obj)
     
         let email= req.query.email;
-        
-        userModel.findOne({ email: email},  (error, user)=> {
+        userModel.findOne({ email:email},  (error, user)=> {
         if (error) {
             res.send(error.message)
         } 
             res.json(user); 
-        console.log(user)
+        // console.log(user)
         });
 }
-
+// ======================================================================
 
 const createController=(req,res)=>{
-    
+
     const {email ,nameImg ,img, description,priceImg }=req.body
     userModel.findOne({email:email}, (error,user)=>{
         if(error){
@@ -36,6 +35,48 @@ const createController=(req,res)=>{
     })
 }
 
+
+// for cart 
+const creatCartController=(req,res)=>{
+    
+    const {email ,nameImg ,img,priceImg }=req.body
+    userModel.findOne({email:email}, (error,user)=>{
+        if(error){
+            res.send(error)
+        }
+        const newCart = {
+            nameImg:nameImg,
+            img:img,
+            price:priceImg
+        }
+
+        user.cart.push(newCart);
+        user.save();
+        res.json(user)
+    
+    })
+}
+
+
+const creatFavoriteController=(req,res)=>{
+
+    const {email ,nameImg ,img }=req.body
+    userModel.findOne({email:email}, (error,user)=>{
+        if(error){
+            res.send(error)
+        }
+        const newGallary = {
+            nameImg:nameImg,
+            img:img,
+        }
+        user.favImg.push(newGallary);
+        user.save();
+        res.send(user)
+    
+    })
+}
+
+// ==============================================================
 
 const updatController=(req,res)=>{
     const imgId=req.params.img_id;
@@ -57,6 +98,7 @@ const updatController=(req,res)=>{
 
 }
 
+// =====================================================================
 
 const deleteController=(req,res)=>{
     const imgId=req.params.img_id;
@@ -65,14 +107,56 @@ const deleteController=(req,res)=>{
         if(error){
             res.send(error)
         }
-        
         user.userData.splice(imgId,1);
         user.save();
         res.send(user)
     })
 }
 
-module.exports={UserController,
+
+
+// for cart 
+const deleteCartController=(req,res)=>{
+    const imgId=req.params.img_id;
+    const email =req.query.email;
+    userModel.findOne({email:email},(error,user)=>{
+        if(error){
+            res.send(error)
+        }
+        user.cart.splice(imgId,1);
+        user.save();
+        res.send(user)
+    })
+}
+// for fav
+const deleteFavoriteController=(req,res)=>{
+    const imgId=req.params.img_id;
+    const email =req.query.email;
+    userModel.findOne({email:email},(error,user)=>{
+        if(error){
+            res.send(error)
+        }
+        user.favImg.splice(imgId,1);
+        user.save();
+        res.send(user)
+    })
+}
+
+
+
+
+
+
+module.exports={
+                UserController,
                 createController,
                 updatController,
-                deleteController}
+                deleteController,
+                creatCartController,
+                deleteCartController,
+                creatFavoriteController,
+                deleteFavoriteController}
+
+
+
+

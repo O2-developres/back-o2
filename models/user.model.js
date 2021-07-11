@@ -26,7 +26,7 @@ const seedUser=()=>{
             nameImg: 'ronaldo',
             img: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Cristiano_Ronaldo_Portugal.jpg',
             description:'ronaldo the amazing one',
-            priceImg:'200$'
+            priceImg:'200'
         
          }],
         favImg:[{
@@ -36,7 +36,7 @@ const seedUser=()=>{
         cart:[{
             nameImg: 'ronaldo ',
             img: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Cristiano_Ronaldo_Portugal.jpg',
-            price: '200 $',
+            price: '200',
              }]
     });
     console.log(ahmad)
@@ -44,5 +44,5 @@ const seedUser=()=>{
     
 }
 
-seedUser();
+// seedUser();
 module.exports={userModel,seedUser}
