@@ -11,12 +11,21 @@ app.use(express.json());
 const PORT=8000;
 const gallaryController=require('./controller/gallary.controller');
 const newsController=require('./controller/news.controller');
-const {UserController,
+const {
+      UserController,
       createController,
       updatController,
-      deleteController}=require('./controller/userController');
+      deleteController,
+      creatCartController,
+      deleteCartController,
+      creatFavoriteController,
+      deleteFavoriteController}=require('./controller/userController');
 
 
+const {AdminController,
+        createContact}=require('./controller/admin.controller')
+
+const {userModel}=require('./models/user.model')
 mongoose.connect('mongodb://localhost:27017/Userart',
     { useNewUrlParser: true, useUnifiedTopology: true }
 );
@@ -25,7 +34,12 @@ app.get('/',  (req, res) =>{
     res.send('Hello World') 
   });
 
+//  for gallary ===============
+
 app.get('/gallary',gallaryController);
+app.get('/news', newsController);
+
+
 
 
 app.listen(PORT, ()=>{
@@ -33,12 +47,41 @@ app.listen(PORT, ()=>{
   }) ;
 
 
-app.get('/news', newsController);
 
+//  for profile =================
 
 app.get('/profile', UserController);
-app.post('/profile',createController)
-app.put('/profile/:img_id',updatController)
-app.delete('/profile/:img_id',deleteController)
+app.post('/profile',createController);
+app.put('/profile/:img_id',updatController);
+app.delete('/profile/:img_id',deleteController);
 
 
+
+//  for  cart =================
+
+app.post('/cart',creatCartController)
+app.delete('/cart/:img_id',deleteCartController)
+
+
+//  for favorite =================
+
+app.post('/favorite',creatFavoriteController)
+app.delete('/favorite/:img_id',deleteFavoriteController)
+
+
+//  for admin for contact us =======
+
+app.get('/admin', AdminController)
+app.post('/admin', createContact)
+
+
+//  for store 
+app.get('/store',(req,res)=>{
+  userModel.find({ },  (error, user)=> {
+    if (error) {
+        res.send(error.message)
+    } 
+        res.json(user); 
+    // console.log(user)
+    });
+})
