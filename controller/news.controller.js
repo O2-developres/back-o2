@@ -11,7 +11,13 @@ const newsController = (req, res) => {
     let options = {
         method: "GET",
         url: `https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/search/NewsSearchAPI?q=${search}`,
-
+        params: {
+            pageNumber: '1',
+            pageSize: '50',
+            autoCorrect: 'true',
+            fromPublishedDate: 'null',
+            toPublishedDate: 'null'
+          },
         headers: {
             "x-rapidapi-key": "1c8c7d3c55mshed867f2dfd41e72p162415jsnae49af3d33a9",
             "x-rapidapi-host": "contextualwebsearch-websearch-v1.p.rapidapi.com",

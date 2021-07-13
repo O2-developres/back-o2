@@ -21,6 +21,11 @@ const createController=(req,res)=>{
     userModel.findOne({email:email}, (error,user)=>{
         if(error){
             res.send(error)
+        }else if(user===null){
+            user= new userModel({
+                email:req.body.email,
+                userData:[]
+            })
         }
         const newGallary = {
             nameImg:nameImg,
@@ -28,6 +33,7 @@ const createController=(req,res)=>{
             description:description,
             priceImg:priceImg
         }
+        
         user.userData.push(newGallary);
         user.save();
         res.json(user)
@@ -43,7 +49,13 @@ const creatCartController=(req,res)=>{
     userModel.findOne({email:email}, (error,user)=>{
         if(error){
             res.send(error)
-        }
+        }else if(user===null){
+            user= new userModel({
+                email:req.body.email,
+                userData:[],
+                favImg:[],
+                cart:[]
+            })}
         const newCart = {
             nameImg:nameImg,
             img:img,
@@ -64,7 +76,12 @@ const creatFavoriteController=(req,res)=>{
     userModel.findOne({email:email}, (error,user)=>{
         if(error){
             res.send(error)
-        }
+        }else if(user===null){
+            user= new userModel({
+                email:req.body.email,
+                userData:[],
+                favImg:[]
+            })}
         const newGallary = {
             nameImg:nameImg,
             img:img,

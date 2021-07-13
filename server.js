@@ -81,7 +81,7 @@ app.get('/store',(req,res)=>{
     if (error) {
         res.send(error.message)
     } 
-        res.json(user); 
+        res.send(user); 
     // console.log(user)
     });
 })
