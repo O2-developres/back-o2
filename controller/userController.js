@@ -10,7 +10,7 @@ const UserController=(req, res)=> {
             res.send(error.message)
         } 
             res.json(user); 
-        // console.log(user)
+        console.log(user)
         });
 }
 // ======================================================================
