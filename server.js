@@ -8,7 +8,7 @@ app.use(express.json());
 
 
 
-const PORT=8000;
+const PORT=process.env.PORT;
 const gallaryController=require('./controller/gallary.controller');
 const newsController=require('./controller/news.controller');
 const {
@@ -26,7 +26,7 @@ const {AdminController,
         createContact}=require('./controller/admin.controller')
 
 const {userModel}=require('./models/user.model')
-mongoose.connect('mongodb://localhost:27017/Userart',
+mongoose.connect('mongodb+srv://o2art:o2art301@cluster0.xyfts.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
@@ -42,9 +42,6 @@ app.get('/news', newsController);
 
 
 
-app.listen(PORT, ()=>{
-    console.log('started server on port 8000')
-  }) ;
 
 
 
@@ -79,9 +76,15 @@ app.post('/admin', createContact)
 app.get('/store',(req,res)=>{
   userModel.find({ },  (error, user)=> {
     if (error) {
-        res.send(error.message)
+      res.send(error.message)
     } 
-        res.send(user); 
+    res.send(user); 
     // console.log(user)
     });
+
+
+
+    app.listen(PORT, ()=>{
+        console.log('started server on port 8000')
+      }) ;
 })
