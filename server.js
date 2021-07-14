@@ -115,9 +115,11 @@ app.get('/store',(req,res)=>{
     // console.log(user)
     });
 
+    
+  })
 
 
-    app.listen(process.env.PORT, ()=>{
-        console.log('started server on port 8000')
-      }) ;
+
+app.listen(process.env.PORT,()=>{
+    console.log(`listening to port: ${process.env.PORT}`);
 })
