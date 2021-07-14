@@ -8,7 +8,7 @@ app.use(express.json());
 
 
 
-const PORT=8000;
+const PORT=process.env.PORT;
 const gallaryController=require('./controller/gallary.controller');
 const newsController=require('./controller/news.controller');
 const {
@@ -26,7 +26,7 @@ const {AdminController,
         createContact}=require('./controller/admin.controller')
 
 const {userModel}=require('./models/user.model')
-mongoose.connect('mongodb://localhost:27017/Userart',
+mongoose.connect('mongodb+srv://art:ahmad7890@cluster0.acyug.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
