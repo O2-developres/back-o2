@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/O2-developres/back-o2#readme",
   "dependencies": {
+    "auth0": "^2.35.1",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

@@ -5,10 +5,43 @@ app.use(cors())
 require('dotenv').config();
 const mongoose=require('mongoose');
 app.use(express.json());
+const jwt=require('jsonwebtoken');
+const jwksClient=require('jwks-rsa');
 
 
 
-const PORT=process.env.PORT;
+// const PORT=process.env.PORT;
+
+
+// auth0
+
+const client = jwksClient({
+  // this url comes from your app on the auth0 dashboard 
+  jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
+});
+
+// this is a ready to use function
+const getKey=(header, callback)=>{
+  client.getSigningKey(header.kid, function(err, key) {
+      const signingKey = key.publicKey || key.rsaPublicKey;
+      callback(null, signingKey);
+    });
+}
+
+// 'Bearer ;alsdkj;laskd;lkasd;lkl'
+app.get('/authorize',(req,res)=>{
+  const token=req.headers.authorization.split(' ')[1];
+  jwt.verify(token,getKey,{},(err,user)=>{
+      if(err){
+          res.send('invalid token');
+      }
+      res.send(user)
+  })
+  res.send(token);
+});
+
+
+
 const gallaryController=require('./controller/gallary.controller');
 const newsController=require('./controller/news.controller');
 const {
@@ -84,7 +117,7 @@ app.get('/store',(req,res)=>{
 
 
 
-    app.listen(PORT, ()=>{
+    app.listen(process.env.PORT, ()=>{
         console.log('started server on port 8000')
       }) ;
 })
