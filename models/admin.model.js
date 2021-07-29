@@ -26,12 +26,23 @@ const seedAdmin=()=>{
     }]
 
 });
+    const ahmad = new adminModel({
+    email:'anofal719@gmail.com',
+    name:'ahmad nofal',
+    contactUs:[{
+        firstName: 'ibrahem ',
+        lastName: ' alomari',
+        userEmail: 'ibrahem.omari96@gmail.com',
+        message: 'i love your work '
+    }]
+
+});
 
 
 
-console.log(ibrahem)
+// console.log(ibrahem)
 ibrahem.save()
-
+ahmad.save()
 }
 
 // seedAdmin();

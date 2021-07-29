@@ -5,8 +5,8 @@ app.use(cors())
 require('dotenv').config();
 const mongoose=require('mongoose');
 app.use(express.json());
-const jwt=require('jsonwebtoken');
-const jwksClient=require('jwks-rsa');
+// const jwt=require('jsonwebtoken');
+// const jwksClient=require('jwks-rsa');
 
 
 
@@ -15,30 +15,30 @@ const jwksClient=require('jwks-rsa');
 
 // auth0
 
-const client = jwksClient({
-  // this url comes from your app on the auth0 dashboard 
-  jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
-});
+// const client = jwksClient({
+//   // this url comes from your app on the auth0 dashboard 
+//   jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
+// });
 
-// this is a ready to use function
-const getKey=(header, callback)=>{
-  client.getSigningKey(header.kid, function(err, key) {
-      const signingKey = key.publicKey || key.rsaPublicKey;
-      callback(null, signingKey);
-    });
-}
+// // this is a ready to use function
+// const getKey=(header, callback)=>{
+//   client.getSigningKey(header.kid, function(err, key) {
+//       const signingKey = key.publicKey || key.rsaPublicKey;
+//       callback(null, signingKey);
+//     });
+// }
 
-// 'Bearer ;alsdkj;laskd;lkasd;lkl'
-app.get('/authorize',(req,res)=>{
-  const token=req.headers.authorization.split(' ')[1];
-  jwt.verify(token,getKey,{},(err,user)=>{
-      if(err){
-          res.send('invalid token');
-      }
-      res.send(user)
-  })
-  res.send(token);
-});
+// // 'Bearer ;alsdkj;laskd;lkasd;lkl'
+// app.get('/authorize',(req,res)=>{
+//   const token=req.headers.authorization.split(' ')[1];
+//   jwt.verify(token,getKey,{},(err,user)=>{
+//       if(err){
+//           res.send('invalid token');
+//       }
+//       res.send(user)
+//   })
+//   res.send(token);
+// });
 
 
 
@@ -52,7 +52,8 @@ const {
       creatCartController,
       deleteCartController,
       creatFavoriteController,
-      deleteFavoriteController}=require('./controller/userController');
+      deleteFavoriteController,
+      deletFromIdmain}=require('./controller/userController');
 
 
 const {AdminController,
@@ -103,6 +104,7 @@ app.delete('/favorite/:img_id',deleteFavoriteController)
 
 app.get('/admin', AdminController)
 app.post('/admin', createContact)
+app.delete('/admin/:id', deletFromIdmain)
 
 
 //  for store 

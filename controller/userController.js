@@ -130,6 +130,24 @@ const deleteController=(req,res)=>{
     })
 }
 
+// for admain
+const deletFromIdmain=(req,res)=>{
+    const imgId=req.params.img_id;
+    const email =req.query.email;
+    userModel.findOne({email:email},(error,user)=>{
+        if(error){
+            res.send(error)
+        }
+        user.userData.splice(imgId,1);
+        user.save().then(()=>{
+            userModel.find({},(err,data)=>{
+                res.send(data)
+            })
+        })
+        
+    })
+    
+}
 
 
 // for cart 
@@ -172,7 +190,9 @@ module.exports={
                 creatCartController,
                 deleteCartController,
                 creatFavoriteController,
-                deleteFavoriteController}
+                deleteFavoriteController,
+                deletFromIdmain
+               }
 
 
 
