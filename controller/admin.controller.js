@@ -1,5 +1,6 @@
 'use strict'
 const {adminModel , seedAdmin} = require('../models/admin.model') 
+const {userModel} = require('../models/user.model') 
 const AdminController=(req, res)=> {
     // let obj=seedAdmin();
     //     res.send(obj)
@@ -35,7 +36,27 @@ const createContact=(req,res)=>{
     
     })
 }
+//======================================
+// delete user
+
+const deleteUser=async(req,res)=>{
+    const email=req.query.email;
+    userModel.remove({email:email},(err,data)=>{
+        if(err){
+            res.send(err);
+        }else{
+            console.log('delete seccuss');
+            userModel.find({},(err,data)=>{
+                if(err){
+                    res.send(err);
+                }else{
+                    res.send(data);
+                }
+            });
+        }
+    });
+
+}
 
 
-
-module.exports={AdminController,createContact}
+module.exports={AdminController,createContact,deleteUser}
