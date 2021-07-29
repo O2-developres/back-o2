@@ -126,7 +126,7 @@ const seedUser=()=>{
     });
 
 
-    console.log(ahmad);
+    // console.log(ahmad);
     ahmad.save();
     assel.save();
     mayyadah.save();
