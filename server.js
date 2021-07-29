@@ -57,7 +57,8 @@ const {
 
 
 const {AdminController,
-        createContact}=require('./controller/admin.controller')
+        createContact,
+        deleteUser}=require('./controller/admin.controller')
 
 const {userModel}=require('./models/user.model')
 mongoose.connect('mongodb+srv://o2art:o2art301@cluster0.xyfts.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
@@ -104,6 +105,7 @@ app.delete('/favorite/:img_id',deleteFavoriteController)
 
 app.get('/admin', AdminController)
 app.post('/admin', createContact)
+app.delete('/adminuser', deleteUser)
 app.delete('/admin/:id', deletFromIdmain)
 
 
